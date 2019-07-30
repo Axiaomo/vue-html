@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #tb {
+            width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        #tb th {
+            background-color: #0094ff;
+            color: white;
+            font-size: 16px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        #tb td {
+
+            padding: 5px;
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input type="text" v-model="id"> -->
+        <input type="text" v-model="name">
+        <button @click="addData">提交数据</button>
+        <table id="tb">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            <tr v-if="list.length==0">
+                <td colspan="4">列表暂无数据</td>
+            </tr>
+            <tr v-for="(item,index) in list" :key="index">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime}}</td>
+                <td>
+                    <a href="">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: "",
+            list: [{
+                id: 1,
+                name: '奔驰',
+                ctime: new Date
+            }]
+        },
+        methods: {
+            addData: function () {
+                var p = {
+                    id: this.list.length + 1,
+                    name: this.name,
+                    ctime: new Date()
+                }
+                this.list.push(p);
+                // 
+                this.id = 0;
+                this.name = ""
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <a href="#" @click="cname='login'">登陆</a> |
+        <a href="#" @click="cname='register'">注册</a>
+        <!-- 利用component标签中的 :is 参数来进行组件的切换 -->
+        <component :is="cname"></component>
+    </div>
+</body>
+<script>
+    Vue.component('login', {
+        template: '<div>登陆页面</div>'
+    });
+    Vue.component('register', {
+        template: '<div>注册页面</div>'
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            cname: 'login'
+        }
+    })
+</script>
+
+</html>

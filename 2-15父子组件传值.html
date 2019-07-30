@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <template id="subname">
+        <div>{{ida}}</div>
+    </template>
+    <div id="app">
+        <subaa :ida="idnumber"></subaa>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            idnumber: 100
+        },
+        components: {
+            "subaa": {
+                template: "#subname",
+                props: ['ida'] //1.0负责接收父组件传入的值
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .activated {
+            color: #f00
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="hanleDivclick" :class="{activated:isActivated}">Hello Word</div>
+
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            isActivated: false
+        },
+        methods: {
+            hanleDivclick: function () {
+                this.isActivated = !this.isActivated
+            }
+        }
+    })
+</script>
+
+</html>

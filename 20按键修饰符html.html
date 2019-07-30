@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #tb {
+            width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        #tb th {
+            background-color: #0094ff;
+            color: white;
+            font-size: 16px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        #tb td {
+
+            padding: 5px;
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="id">
+        <input type="text" v-model="name" filters="">
+        <input type="text" v-model="sname" placeholder="输入搜索内容">
+        <button @keydown.f2="addData">提交数据</button>
+        <table id="tb">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            <tr v-if="list.length==0">
+                <td colspan="4">列表暂无数据</td>
+            </tr>
+            <tr v-for="(item,index) in list" :key="index">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime | datefmat('yyyy-mm-dd')}}</td>
+                <td>
+                    <a href="javascript:void(0)" @click="delData(item.id)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    // 1.0 按键修饰符
+    Vue.config.keyCodes.f2 = 113;
+    console.log(Vue.config.keyCodes)
+    // 1.0定义全局过滤器
+    Vue.filter('datefmat', function (input, formatstring) {
+        var res = '';
+        var year = input.getFullYear();
+        var month = input.getMonth() + 1;
+        var day = input.getDate();
+        if (formatstring == 'yyyy-mm-dd') {
+            res = year + '-' + month + '-' + day;
+        } else {
+            res = year + "-" + month + "-" + day + ' 03:09:18'
+        }
+        return res;
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: "",
+            sname: '',
+            list: [{
+                    id: 1,
+                    name: '奔驰',
+                    ctime: new Date()
+                },
+                {
+                    id: 2,
+                    name: '宝马',
+                    ctime: new Date()
+                },
+                {
+                    id: 3,
+                    name: '长安奔奔',
+                    ctime: new Date()
+                }
+            ],
+        },
+        methods: {
+            addData: function () {
+                var p = {
+                    id: this.id,
+                    name: this.name,
+                    ctime: new Date()
+                }
+                this.list.push(p);
+                // 
+                this.id = 0;
+                this.name = ""
+            },
+            delData: function (id) {
+                //0.0 提醒用户是否要删除数据
+                if (!confirm('是否要删除数据')) {
+                    return
+                }
+                //1.0 调用list.findIndex()方法根据传入的id获取到这个要删除数据的索引值 itema 为便利list里面的数据
+                var index = this.list.findIndex(function (itema) {
+                    return itema.id == id
+                });
+                // 2.0 调用的 list.splice(删除的索引，删除的元素个数)
+                this.list.splice(index, 1)
+            }
+        }
+    })
+</script>
+
+</html>

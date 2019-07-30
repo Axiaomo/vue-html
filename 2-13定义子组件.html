@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <template id="account">
+        <div>
+            {{msg}}
+            <a href="#" @click="login">登陆</a>|
+            <a href="#">注册</a>
+        </div>
+    </template>
+    <div id="app">
+        <account></account>
+        <login></login>
+        <register></register>
+    </div>
+</body>
+<script>
+    // 定义组件
+    var login = Vue.extend({
+        template: "<h1>登陆页面</h1>"
+    });
+    // 注册组件
+    Vue.component('login', login);
+    Vue.component('register', {
+        template: '<h1>注册页面</h1>'
+    })
+    Vue.component('account', {
+        template: '#account',
+        data: function () {
+            return {
+                msg: '账户组件页面'
+            }
+        },
+        methods: {
+            login: function () {
+                alert('login')
+            }
+        }
+    })
+    new Vue({
+        el: "#app"
+    })
+</script>
+
+</html>
